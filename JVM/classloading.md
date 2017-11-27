@@ -30,11 +30,11 @@ public class Person {
    private int pId;
    private String pName;
     
-   public void setpId(int empId) {
-      this.empId = empId;
+   public void setpId(int pid) {
+      this.pId = pid;
    }
-   public void setPname(String empName) {
-      this.empName = empName;
+   public void setPname(String pname) {
+      this.pName = pname;
    }
 }
 ```
