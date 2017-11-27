@@ -1,87 +1,124 @@
-# Project Title
+# Java Class Loading
 
-One Paragraph of project description goes here
+Java class loading explanation
 
-## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+## What is Java Class Loading ?
 
-What things you need to install the software and how to install them
+Java class loader loads java classes into JVM dynamically (i.e during runtime ) , Java class loading corresponds to taking the
+.class file from the secondary storage and store its binary data inside JVM method area .without the  concept of a ClassLoader,
+it would not be possible to dynamically load new code into the JVM at runtime
 
-```
-Give examples
-```
+The Java virtual machine has a component called class loader subsystem that is mainly  responsible for loading process 
 
-### Installing
+![alt text](https://1.bp.blogspot.com/-tLOt9nQ-0ew/V5rt9-0LzRI/AAAAAAAACjs/F8dY9wUEBeAFVlEoXiNRsKLA4nKtjYXRQCLcB/s1600/Capture.jpg)
 
-A step by step series of examples that tell you have to get a development env running
+### Class Loader Subsystem
+The class loader goes through steps which involve loading , linking , initialization
 
-Say what the step will be
+Loading Involves storing metadata about the class such as 
+method name ,
+class name ,
+properties of that class etc ..
 
-```
-Give the example
-```
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+#### Class Loading Example Program
 
 ```
-Give an example
+public class Person {  
+   private int pId;
+   private String pName;
+    
+   public void setpId(int empId) {
+      this.empId = empId;
+   }
+   public void setPname(String empName) {
+      this.empName = empName;
+   }
+}
 ```
 
-### And coding style tests
+```
+public class Solution {
+   public static void main(String[] args) throws ClassNotFoundException {
+      Class cl = Class.forName("Person");
+      Method[] me = cl.getDeclaredMethods();
+      for(Method method : me) {
+          System.out.println(method);
+      }
+      Field[] fi = cl.getDeclaredFields();
+      for(Field field : fi) {
+          System.out.println(field);
+      }
+   }
+}
 
-Explain what these tests test and why
 
 ```
-Give an example
+
+
+```
+the output :
+
+
+public void Person.setpId(int)
+public void Person.setPname(java.lang.String)
+private Person.pId
+private java.lang.String Person.pName
+
+
+
 ```
 
-## Deployment
+#### Creation of Class 
+After loading is done Jvm creates an object of type java.lang.Class in method area
 
-Add additional notes about how to deploy this on a live system
+There are some points to remember 
+For unique .class file only one java.lang.Class object will be created 
 
-## Built With
+### Types of ClassLoaders
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+1)Bootstrap class loader
+2)Extension class loader
+3)Application class loader
 
-## Contributing
+Bootstrap class loader 
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+It loads classes from bootstrap class path , all the core java classes like String etc..
+they are avaiable in rt.jar
 
-## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+Extension class loader
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+It loads classes from extension class path, it loads classes present in path/ext folder
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+Application class loader
+It loads classes from Application class path , it refers to classes in present application or environment class path
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+
+'''
+public class Solution {
+   public static void main(String[] args) {
+       System.out.println(String.class.getClassLoader());
+   }
+}
+'''
+
+output is : 
+
+null
+
+'''
+
+
+
+'''
+
+### Other Info
+Read more about Linking and  Initialization from 
+https://www.javaworld.com/article/2077260/learn-java/learn-java-the-basics-of-java-class-loaders.html
