@@ -72,7 +72,7 @@ private java.lang.String Person.pName
 ```
 
 #### Creation of Class 
-After loading is done Jvm creates an object of type java.lang.Class in method area
+After loading is done Jvm creates an object of type java.lang.Class in method area.
 
 There are some points to remember 
 For unique .class file only one java.lang.Class object will be created 
