@@ -82,42 +82,40 @@ For unique .class file only one java.lang.Class object will be created
 1)Bootstrap class loader
 2)Extension class loader
 3)Application class loader
-
+####
 Bootstrap class loader 
 
 It loads classes from bootstrap class path , all the core java classes like String etc..
-they are avaiable in rt.jar
+they are available in rt.jar
 
 
 
-
+####
 Extension class loader
 
 It loads classes from extension class path, it loads classes present in path/ext folder
 
 
-
+####
 Application class loader
 It loads classes from Application class path , it refers to classes in present application or environment class path
 
 
-'''
+```
 public class Solution {
    public static void main(String[] args) {
        System.out.println(String.class.getClassLoader());
    }
 }
-'''
+```
+```
 
 output is : 
 
 null
 
-'''
+```
 
-
-
-'''
 
 ### Other Info
 Read more about Linking and  Initialization from 
